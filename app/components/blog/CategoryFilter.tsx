@@ -1,5 +1,3 @@
-// Create this file at: /app/components/blog/CategoryFilter.tsx
-
 interface CategoryFilterProps {
     categories: string[];
     activeCategory: string;

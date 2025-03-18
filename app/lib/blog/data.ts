@@ -1,8 +1,4 @@
-// Create this file at: /app/lib/blog/data.ts
-
 import { BlogPost } from './types';
-
-// Sample blog posts data
 export const blogPosts: BlogPost[] = [
   {
     id: "1",

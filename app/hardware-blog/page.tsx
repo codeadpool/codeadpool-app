@@ -5,6 +5,7 @@ import BlogCard from '../components/blog/BlogCard';
 import { getAllPosts, getFeaturedPosts } from '../lib/blog/markdown';
 import Loading from './loading';
 import { BlogPost } from '../lib/blog/types';
+import Footer from '@/app/components/Footer';
 
 export default function BlogPage() {
   // const [allPosts, setAllPosts] = useState([]);
@@ -231,6 +232,7 @@ const [filteredPosts, setFilteredPosts] = useState([] as BlogPost[]);
           </section>
         </>
       )}
+      <Footer />
     </main>
   );
 }

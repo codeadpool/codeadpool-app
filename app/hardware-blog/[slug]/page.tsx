@@ -5,6 +5,7 @@ import { FaCalendarAlt, FaClock, FaTag, FaArrowLeft } from 'react-icons/fa';
 import { getPostBySlug, getAllPostSlugs } from '../../lib/blog/markdown';
 // import { BlogPost } from '../../lib/blog/types';
 import Loading from '../loading';
+import Footer from '@/app/components/Footer';
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
@@ -85,22 +86,12 @@ async function BlogPostContent({ slug }: { slug: string }) {
                   prose-a:text-emerald-400 prose-a:no-underline prose-a:transition-colors prose-a:duration-200 hover:prose-a:text-emerald-300 hover:prose-a:underline
                   prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8 prose-img:mx-auto
                             
-                  prose-code:text-white prose-code:px-2 prose-code:py-1 
-                  prose-code:rounded-lg prose-code:text-[0.9em] prose-code:font-mono prose-code:border prose-code:border-gray-700/30
-                  prose-code:shadow-sm prose-code:break-words
+                prose-code:text-white prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-[0.9em] prose-code:font-mono prose-code:border prose-code:border-emerald-400/20 
+                 prose-code:bg-gradient-to-b prose-code:from-gray-800 prose-code:to-gray-900 prose-code:shadow-sm prose-code:break-words prose-code:transition-all prose-code:hover:border-emerald-400/30
 
-                  prose-pre:bg-gray-900 prose-pre:border prose-pre:border-emerald-900/50 
-                  prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:my-10 
-                  prose-pre:max-h-[600px] prose-pre:overflow-auto prose-pre:scrollbar-thin
-                  prose-pre:scrollbar-track-gray-800 prose-pre:scrollbar-thumb-gray-600 prose-pre:hover:scrollbar-thumb-gray-500
-                  prose-pre:relative prose-pre:pt-10 prose-pre:backdrop-blur-sm
-
-                  prose-pre:before:absolute prose-pre:before:top-0 prose-pre:before:left-0 
-                  prose-pre:before:w-full prose-pre:before:h-8 prose-pre:before:bg-gray-800/70
-                  prose-pre:before:rounded-t-2xl prose-pre:before:border-b prose-pre:before:border-gray-700/50
-                  prose-pre:before:content-[''] prose-pre:before:flex prose-pre:before:items-center
-                  prose-pre:before:px-4 prose-pre:before:text-sm prose-pre:before:font-mono
-                  prose-pre:before:text-gray-400
+                prose-pre:bg-gray-900 prose-pre:border prose-pre:border-emerald-900/50 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:my-10 prose-pre:max-h-[650px] prose-pre:overflow-auto 
+                prose-pre:scrollbar-thin prose-pre:scrollbar-track-gray-800 prose-pre:scrollbar-thumb-emerald-900 prose-pre:hover:scrollbar-thumb-emerald-800 prose-pre:relative prose-pre:backdrop-blur-md
+                 prose-pre:hover:border-emerald-900/60 prose-pre:hover:shadow-3xl prose-pre:[&>:first-child]:mt-6 prose-pre:[&>:last-child]:mb-6
 
                   prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-gray-800/50 prose-blockquote:p-4 prose-blockquote:rounded-r-md prose-blockquote:italic
                   prose-strong:text-emerald-200
@@ -110,7 +101,7 @@ async function BlogPostContent({ slug }: { slug: string }) {
               
               {/* Tags section */}
               <div className="mt-16 pt-8 border-t border-gray-700">
-                <div className="flex flex-wrap gap-3 justify-center"> {/* Centered tags */}
+                <div className="flex flex-wrap gap-3 justify-center">
                   {post.tags.map((tag) => (
                     <Link 
                       key={tag} 
@@ -141,7 +132,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Suspense fallback={<Loading />}>
         <BlogPostContent slug={slug} />
       </Suspense>
+      <Footer />
     </main>
+    
   );
 }
 

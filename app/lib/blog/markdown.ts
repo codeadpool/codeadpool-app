@@ -62,7 +62,6 @@ function calculateReadingTime(content: string): string {
 // Get data for all blog posts
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
-    // Get file names under /content/blog
     const fileNames = fs.readdirSync(postsDirectory);
     
     if (fileNames.length === 0) {
@@ -71,30 +70,18 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     }
     
     const allPostsData = await Promise.all(fileNames
-      .filter(fileName => fileName.endsWith('.md')) // Only process markdown files
+      .filter(fileName => fileName.endsWith('.md')) 
       .map(async (fileName) => {
         try {
-          // Remove ".md" from file name to get slug
           const slug = fileName.replace(/\.md$/, '');
-          
-          // Read markdown file as string
           const fullPath = path.join(postsDirectory, fileName);
           const fileContents = fs.readFileSync(fullPath, 'utf8');
-          
-          // Use gray-matter to parse the post metadata section
           const matterResult = matter(fileContents);
-          
-          // Process markdown content
           const content = await processMarkdown(matterResult.content);
-          
-          // Extract front matter data
           const frontMatter = matterResult.data as Partial<Omit<BlogPost, 'slug' | 'content'>>;
-          
-          // Set default values for missing fields
           const date = frontMatter.date ? formatDate(frontMatter.date as string) : formatDate(new Date().toISOString());
           const readTime = frontMatter.readTime || calculateReadingTime(matterResult.content);
-          
-          // Combine the data with the slug and content
+
           return {
             id: frontMatter.id || slug,
             title: frontMatter.title || 'Untitled Post',
@@ -113,14 +100,12 @@ export async function getAllPosts(): Promise<BlogPost[]> {
         }
       }));
     
-    // Filter out any null values from errors and sort posts by date
     return allPostsData
       .filter((post): post is BlogPost => post !== null)
       .sort((a, b) => {
-        // Parse dates for comparison
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        return dateB.getTime() - dateA.getTime(); // Newest first
+        return dateB.getTime() - dateA.getTime(); 
       });
   } catch (error) {
     console.error('Error getting all posts:', error);
@@ -128,7 +113,6 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   }
 }
 
-// Get all post slugs for static generation
 export async function getAllPostSlugs() {
   try {
     const fileNames = fs.readdirSync(postsDirectory);
@@ -150,29 +134,19 @@ export async function getAllPostSlugs() {
 export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.md`);
-    
-    // Check if file exists
+
     if (!fs.existsSync(fullPath)) {
       console.warn(`Post file not found: ${fullPath}`);
       return undefined;
     }
     
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-    
-    // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
-    
-    // Process markdown content
     const content = await processMarkdown(matterResult.content);
-    
-    // Extract front matter data
     const frontMatter = matterResult.data as Partial<Omit<BlogPost, 'slug' | 'content'>>;
-    
-    // Set default values for missing fields
     const date = frontMatter.date ? formatDate(frontMatter.date as string) : formatDate(new Date().toISOString());
     const readTime = frontMatter.readTime || calculateReadingTime(matterResult.content);
     
-    // Combine the data with the slug and content
     return {
       id: frontMatter.id || slug,
       title: frontMatter.title || 'Untitled Post',
@@ -227,23 +201,18 @@ export async function searchPosts(term: string): Promise<BlogPost[]> {
   }
 }
 
-// Get featured posts
 export async function getFeaturedPosts(): Promise<BlogPost[]> {
   try {
     const allPosts = await getAllPosts();
-    
-    // First look for posts explicitly marked as featured
+
     const explicitlyFeatured = allPosts.filter(post => 
       post.tags.includes('featured') || 
-      // (post as any).featured === true
       (post as { featured?: boolean }).featured === true
     );
     
     if (explicitlyFeatured.length > 0) {
       return explicitlyFeatured.slice(0, 3);
     }
-    
-    // Otherwise return the most recent posts
     return allPosts.slice(0, 3);
   } catch (error) {
     console.error('Error getting featured posts:', error);
@@ -251,31 +220,23 @@ export async function getFeaturedPosts(): Promise<BlogPost[]> {
   }
 }
 
-// Get related posts based on category and tags
 export async function getRelatedPosts(currentPost: BlogPost, limit: number = 3): Promise<BlogPost[]> {
   try {
     const allPosts = await getAllPosts();
-    
-    // Filter out the current post
     const otherPosts = allPosts.filter(post => post.id !== currentPost.id);
-    
-    // Score each post based on relevance
     const scoredPosts = otherPosts.map(post => {
       let score = 0;
-      
-      // Same category is a strong signal
+
       if (post.category === currentPost.category) {
         score += 5;
       }
-      
-      // Shared tags indicate relevance
+
       const sharedTags = post.tags.filter(tag => currentPost.tags.includes(tag));
       score += sharedTags.length * 2;
       
       return { post, score };
     });
     
-    // Sort by score (highest first) and take the top 'limit' posts
     return scoredPosts
       .sort((a, b) => b.score - a.score)
       .slice(0, limit)
@@ -286,7 +247,6 @@ export async function getRelatedPosts(currentPost: BlogPost, limit: number = 3):
   }
 }
 
-// Get all categories
 export async function getAllCategories(): Promise<string[]> {
   try {
     const allPosts = await getAllPosts();
@@ -303,7 +263,6 @@ export async function getAllCategories(): Promise<string[]> {
   }
 }
 
-// Get all tags
 export async function getAllTags(): Promise<string[]> {
   try {
     const allPosts = await getAllPosts();

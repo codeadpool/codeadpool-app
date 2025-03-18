@@ -40,7 +40,6 @@ const Hero_L: React.FC<HeroProps> = ({
   const [binaryMatrix, setBinaryMatrix] = useState<string[]>([]);
 
   useEffect(() => {
-    // This code only runs on the client side
     const matrix = Array(20).fill(0).map(() => 
       Array(30).fill(0).map(() => 
         Math.random() > 0.5 ? '1' : '0'
@@ -56,11 +55,8 @@ const Hero_L: React.FC<HeroProps> = ({
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
-    // Store the context in the ref for use outside this effect
     ctxRef.current = ctx;
-    
-    // Create static circuit network
+
     const nodes: {
       x: number;
       y: number;
@@ -118,21 +114,14 @@ const Hero_L: React.FC<HeroProps> = ({
       
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
-      // Redraw all content after resize
       drawNodes();
     };
-    
-    // Add event listener for resize
+
     window.addEventListener('resize', resizeCanvas);
-    
-    // Initial setup
+
     const setupNodes = () => {
       if (!canvas) return;
-      
-      // Clear existing nodes
-      nodes.length = 0;
-      
+      nodes.length = 0; 
       const nodeCount = Math.floor(window.innerWidth * window.innerHeight / 15000);
       
       // Create nodes
@@ -170,16 +159,12 @@ const Hero_L: React.FC<HeroProps> = ({
           }
         }
       }
-      
-      // Draw the initial circuit
       drawNodes();
     };
-    
-    // Initial setup and drawing
+
     resizeCanvas();
     setupNodes();
-    
-    // Cleanup function
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
     };

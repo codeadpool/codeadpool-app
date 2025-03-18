@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white min-h-0 py-3">
+    <footer className="bg-black text-white min-h-0 py-3">
       <div className="container mx-auto flex flex-col-reverse md:flex-row justify-between items-center px-4">
         <p className="text-sm">&copy; {new Date().getFullYear()} codeadpool. All rights reserved.</p>
         
