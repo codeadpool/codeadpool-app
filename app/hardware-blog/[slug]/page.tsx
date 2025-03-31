@@ -77,25 +77,23 @@ async function BlogPostContent({ slug }: { slug: string }) {
             {/* Main content */}
             <div className="bg-black">
               <article 
-                className="prose prose-lg prose-invert prose-emerald mx-auto
+                  className="prose prose-lg prose-invert prose-emerald mx-auto
                   prose-headings:font-display prose-headings:text-emerald-400 prose-headings:font-bold
                   prose-h1:text-3xl md:prose-h1:text-4xl lg:prose-h1:text-5xl prose-h1:text-center
-                  prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-700/50
+                  prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-2
                   prose-h3:text-xl md:prose-h3:text-2xl prose-h3:text-emerald-300
                   prose-p:text-white prose-p:leading-relaxed
-                  prose-a:text-emerald-400 prose-a:no-underline prose-a:transition-colors prose-a:duration-200 hover:prose-a:text-emerald-300 hover:prose-a:underline
+                  prose-a:text-emerald-400 prose-a:no-underline prose-a:transition-colors prose-a:duration-200 hover:prose-a:text-emerald-300
                   prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8 prose-img:mx-auto
-                            
-                prose-code:text-white prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-[0.9em] prose-code:font-mono prose-code:border prose-code:border-emerald-400/20 
-                 prose-code:bg-gradient-to-b prose-code:from-gray-800 prose-code:to-gray-900 prose-code:shadow-sm prose-code:break-words prose-code:transition-all prose-code:hover:border-emerald-400/30
-
-                prose-pre:bg-gray-900 prose-pre:border prose-pre:border-emerald-900/50 prose-pre:rounded-2xl prose-pre:shadow-2xl prose-pre:my-10 prose-pre:max-h-[650px] prose-pre:overflow-auto 
-                prose-pre:scrollbar-thin prose-pre:scrollbar-track-gray-800 prose-pre:scrollbar-thumb-emerald-900 prose-pre:hover:scrollbar-thumb-emerald-800 prose-pre:relative prose-pre:backdrop-blur-md
-                 prose-pre:hover:border-emerald-900/60 prose-pre:hover:shadow-3xl prose-pre:[&>:first-child]:mt-6 prose-pre:[&>:last-child]:mb-6
-
-                  prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-gray-800/50 prose-blockquote:p-4 prose-blockquote:rounded-r-md prose-blockquote:italic
+                  prose-code:text-white prose-code:px-2 prose-code:py-1 prose-code:rounded-lg prose-code:text-[0.9em] prose-code:font-mono 
+                  prose-code:border prose-code:border-emerald-400/20 prose-code:bg-black prose-code:break-words prose-code:transition-all hover:prose-code:border-emerald-400/30
+                  prose-pre:bg-[#282a36] prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-auto prose-pre:max-h-[650px]
+                  prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-gray-800/50 
+                  prose-blockquote:p-4 prose-blockquote:rounded-r-md prose-blockquote:italic
                   prose-strong:text-emerald-200
-                  prose-table:rounded-lg prose-table:overflow-hidden prose-thead:bg-gray-800 prose-th:p-3 prose-td:p-3 prose-tr:border-b prose-tr:border-gray-700/50"
+                  prose-table:rounded-lg prose-table:overflow-hidden prose-thead:bg-gray-800 
+                  prose-th:p-3 prose-td:p-3 prose-tr:border-b prose-tr:border-gray-700/50
+                  prose-pre:[&_code]:bg-transparent prose-pre:[&_code]:p-0 prose-pre:[&_code]:border-none"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
               

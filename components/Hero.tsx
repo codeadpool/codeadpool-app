@@ -308,7 +308,7 @@ const Hero_L: React.FC<HeroProps> = ({
                 )}
               </div>
 
-              <div className="mt-12 grid grid-cols-3 gap-4">
+              {/* <div className="mt-12 grid grid-cols-3 gap-4">
                 <div className="flex flex-col items-center p-3 bg-gray-800/50 rounded-lg border border-gray-700 backdrop-blur-sm">
                   <span className="text-emerald-400 text-sm font-mono mb-1">Verificaiton</span>
                   <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">           
@@ -329,7 +329,7 @@ const Hero_L: React.FC<HeroProps> = ({
                     <div className="h-full bg-emerald-500 rounded-full animate-pulse" style={{ width: '85%', animationDelay: '0.4s' }}></div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             
             <div className="flex justify-center">
